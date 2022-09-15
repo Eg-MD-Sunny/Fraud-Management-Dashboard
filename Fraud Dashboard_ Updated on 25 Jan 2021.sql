@@ -15,18 +15,6 @@ and s.reconciledon>='2022-04-14 00:00 +6:00'
 and s.reconciledon<'2022-04-21 00:00 +6:00'
 having count(*)>2
 
-/*
--- Discount List Log (Need to send the list to omer vaia for reasons)
-
-Select d.name DiscountName,d.CouponCode CouponCode,d.StartDateUtc StartDate,d.EndDateUtc,
-d.DiscountPercentage,d.DiscountAmount,d.MinimumOrderTotal
-from discount d 
-where (EndDateUtc is null or EndDateUtc>'2021-01-19')
-and d.name not like 'E %'
-and d.name not like '%Retention%'
-group by d.name,d.CouponCode,d.StartDateUtc,d.DiscountAmount,d.DiscountPercentage,d.MinimumOrderTotal,d.EndDateUtc
-order by 5 desc
-*/
 
 --Telesales Order Details
 
