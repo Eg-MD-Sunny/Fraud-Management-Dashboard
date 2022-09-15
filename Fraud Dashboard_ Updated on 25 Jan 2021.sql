@@ -1,8 +1,8 @@
 -- Coupon Abuse
 
 select count(distinct o.customerid) [CustomerCount],
-	   count(distinct s.orderid) [OrderCount],
-	   sum(tr.saleprice) [Saleprice]
+	   count(distinct s.orderid)    [OrderCount],
+	   sum(tr.saleprice)            [Saleprice]
 
 from ThingRequest tr
 join shipment s on s.id=tr.shipmentid
@@ -22,9 +22,10 @@ having count(*)>2
 
 --Telesales Order Details
 
-select sum(OrderAmount) TotalOrderAmount,
-SUM(ReturnedAmount) ReturnedAmount,
-sum(case when o.OrderStatus=40 then OrderAmount else 0 end) CancelledOrderAmount
+select sum(OrderAmount)                                     [TotalOrderAmount],
+SUM(ReturnedAmount)                                         [ReturnedAmount],
+sum(case when o.OrderStatus=40 then OrderAmount else 0 end) [CancelledOrderAmount]
+
 from [order] o
 join (select s.orderid,sum(tr.saleprice) OrderAmount from ThingRequest tr join shipment s on s.id=tr.ShipmentId group by s.orderid) oa on oa.Orderid=o.id
 left join (select s.orderid,sum(tr.saleprice) ReturnedAmount from ThingRequest tr join shipment s on s.id=tr.ShipmentId where IsReturned=1 group by s.orderid) rt on rt.Orderid=o.id
@@ -39,6 +40,7 @@ where
 cast(dbo.tobdt(o.createdonutc) as date)>='2022-04-14'
 and cast(dbo.tobdt(o.createdonutc) as date)<'2022-04-21'
 order by 1 asc 
+
 
 -- Gift From Chaldal Abuse
 
