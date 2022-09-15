@@ -123,7 +123,7 @@ from (
 			   sum(deliveryfee) Deliveryfee
 		from shipment s
 		join [order] o on o.id=s.orderid
-		
+
 where s.reconciledon is not null
 and s.reconciledon>='2022-04-14 00:00 +6:00'
 and s.reconciledon<'2022-04-21 00:00 +6:00'
@@ -152,7 +152,8 @@ having count(distinct a.orderid)>1)b
 
 -- Organizational Data (Without Accounts Department)
 
-select COUNT(distinct c2.id) CustomerID, SUM(t.MoneyBalance) MoneyBalance
+select COUNT(distinct c2.id) CustomerID,
+SUM(t.MoneyBalance) MoneyBalance
 from accounting.txn t
 join accounting.account ac2 on ac2.id = t.accountid
 join accounting.event ev on ev.id = t.eventid
@@ -209,7 +210,9 @@ order by 1 asc
 
 -- Snag_Damage
 
-select COUNT(distinct customerid) DamageCustomer, sum(saleprice) DamageAmount
+select  COUNT(distinct customerid) [DamageCustomer],
+		sum(saleprice) [DamageAmount]
+
 from ThingRequest tr
 join shipment s on s.id = tr.shipmentid
 join [order] o on o.id = s.orderid
