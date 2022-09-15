@@ -66,9 +66,10 @@ from (
 
 -- Iscancelled
 
-Select Count(*) ReconciledProductQuantity,
-sum(case when IsCancelled=1 then 1 else 0 end) IsCancelledQuantity,
-sum(case when IsCancelled=1 then tr.saleprice else 0 end) IsCancelledAmount
+Select Count(*) 										  [ReconciledProductQuantity],
+sum(case when IsCancelled=1 then 1 else 0 end)            [IsCancelledQuantity],
+sum(case when IsCancelled=1 then tr.saleprice else 0 end) [IsCancelledAmount]
+
 from ThingRequest tr
 join shipment s on s.id=tr.ShipmentId
 where s.reconciledon>='2022-04-14 00:00 +6:00'
