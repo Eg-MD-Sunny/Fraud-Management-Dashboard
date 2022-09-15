@@ -1,6 +1,9 @@
 -- Coupon Abuse
 
-select COUNT(distinct o.customerid) CustomerCount, COUNT(distinct s.orderid) OrderCount, sum(tr.saleprice) Saleprice
+select count(distinct o.customerid) [CustomerCount],
+	   count(distinct s.orderid) [OrderCount],
+	   sum(tr.saleprice) [Saleprice]
+
 from ThingRequest tr
 join shipment s on s.id=tr.shipmentid
 join [order] o on o.id=s.orderid
@@ -13,6 +16,7 @@ and IsMissingAfterDispatch=0
 and s.ShipmentStatus not in (1,9,10)
 and s.reconciledon>='2022-04-14 00:00 +6:00'
 and s.reconciledon<'2022-04-21 00:00 +6:00'
+
 having count(*)>2
 
 
