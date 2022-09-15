@@ -115,12 +115,15 @@ order by 5 desc
 
 -- Order Details (Delivery Fee 0)
 
-Select count(distinct a.OrderID) OrderCount,
-count(distinct a.CustomerId) CustomerCount
+Select count(distinct a.OrderID) 	[OrderCount],
+count(distinct a.CustomerId) 		[CustomerCount]
 from (
-Select s.orderid OrderID, o.customerid, sum(deliveryfee) Deliveryfee
-from shipment s
-join [order] o on o.id=s.orderid
+		Select s.orderid OrderID,
+			   o.customerid,
+			   sum(deliveryfee) Deliveryfee
+		from shipment s
+		join [order] o on o.id=s.orderid
+		
 where s.reconciledon is not null
 and s.reconciledon>='2022-04-14 00:00 +6:00'
 and s.reconciledon<'2022-04-21 00:00 +6:00'
