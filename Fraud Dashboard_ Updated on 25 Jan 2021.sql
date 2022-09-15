@@ -36,8 +36,7 @@ join employee e on e.id=ont.ActionByCustomerId
 where e.DesignationId in (18,65,125)
 and ont.note like '%order placed by an admin%'
 group by orderid) nt on nt.orderid=o.id
-where 
-cast(dbo.tobdt(o.createdonutc) as date)>='2022-04-14'
+where cast(dbo.tobdt(o.createdonutc) as date)>='2022-04-14'
 and cast(dbo.tobdt(o.createdonutc) as date)<'2022-04-21'
 order by 1 asc 
 
@@ -76,6 +75,7 @@ where s.reconciledon>='2022-04-14 00:00 +6:00'
 and s.reconciledon<'2022-04-21 00:00 +6:00'
 and s.ShipmentStatus not in (1,9,10)
 and s.Reconciledon is not null
+
 order by 1 asc
 
 
@@ -90,22 +90,26 @@ where s.reconciledon>='2022-04-14 00:00 +6:00'
 and s.reconciledon<'2022-04-21 00:00 +6:00'
 and s.ShipmentStatus not in (1,9,10)
 and s.Reconciledon is not null
+
 order by 1 asc
 
 
 -- 30% Returned on Order (Order Count)
 
-Select cast(dbo.tobdt(reconciledon) as date) ReconciledDate,
-s.orderid,
-Count(*) ReconciledProductQuantity, sum(tr.saleprice) Saleprice,
-sum(case when IsReturned=1 then 1 else 0 end) IsReturnedQuantity,
-sum(case when IsReturned=1 then tr.saleprice else 0 end) IsReturnedAmount
+Select cast(dbo.tobdt(reconciledon) as date) 			[ReconciledDate],
+s.orderid 												[OrderID],
+Count(*) 												[ReconciledProductQuantity], 
+sum(tr.saleprice) 										[Saleprice],
+sum(case when IsReturned=1 then 1 else 0 end) 			[IsReturnedQuantity],
+sum(case when IsReturned=1 then tr.saleprice else 0 end)[IsReturnedAmount]
+
 from ThingRequest tr
 join shipment s on s.id=tr.ShipmentId
 where s.reconciledon>='2022-04-14 00:00 +6:00'
 and s.reconciledon<'2022-04-21 00:00 +6:00'
 and s.ShipmentStatus not in (1,9,10)
 and s.Reconciledon is not null
+
 group by cast(dbo.tobdt(reconciledon) as date),s.orderid
 order by 5 desc
 
