@@ -4,7 +4,9 @@ DECLARE @SnagType int = 1 -- Snag Damage = 3 || Missing = 1
 select COUNT(distinct preWeek.DamageCustomer) Snag_Customer_Repeated
 from (select pdt.DamageCustomer, COUNT(pdt.DamageCustomer) Damage
 	from ((
-		select customerid DamageCustomer, sum(saleprice) DamageAmount
+		select customerid 		[DamageCustomer],
+		       sum(saleprice) 	[DamageAmount]
+
 		from ThingRequest tr
 		join shipment s on s.id = tr.shipmentid
 		join [order] o on o.id = s.orderid
