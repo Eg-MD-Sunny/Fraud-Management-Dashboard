@@ -203,8 +203,8 @@ select cast(dbo.tobdt(po.CompletedOn) as date)                      [Dates],
 	   v.name 								   						[VendorName], 
 	   po.id                                   						[POID],
        count(*)                                						[RequestedQuantity],
-sum(case when t.costprice is not null then 1 else 0 end) ReceivedQuantity,
-sum(case when t.costprice is not null then t.costprice else 0 end) ReceivedAmount
+sum(case when t.costprice is not null then 1 else 0 end) 			[ReceivedQuantity],
+sum(case when t.costprice is not null then t.costprice else 0 end) 	[ReceivedAmount]
 from thing t
 join purchaseorder po on po.id=t.purchaseorderid
 join vendor v on v.id=po.vendorid
