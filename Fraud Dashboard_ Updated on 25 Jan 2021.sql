@@ -182,7 +182,7 @@ order by 2 asc
 
 -- Conveyance Data
 
-select SUM(dt.Amount) Conveyance
+select SUM(dt.Amount) [Conveyance]
 from (
 	select  Cast(dbo.tobdt([When]) as DATE) Dates, Amount, Memo,
 	substring(memo,(PATINDEX('% [0-9]%',Memo)),3) Warehouses
@@ -198,9 +198,11 @@ where dt.Amount > 0
 
 -- Vendor Wise Fulfilment
 
-select cast(dbo.tobdt(po.CompletedOn) as date) Dates,
-v.id vendorid,v.name, po.id POID,
-count(*) RequestedQuantity,
+select cast(dbo.tobdt(po.CompletedOn) as date)                      [Dates],
+       v.id 								                        [vendorid],
+	   v.name 								   						[VendorName], 
+	   po.id                                   						[POID],
+       count(*)                                						[RequestedQuantity],
 sum(case when t.costprice is not null then 1 else 0 end) ReceivedQuantity,
 sum(case when t.costprice is not null then t.costprice else 0 end) ReceivedAmount
 from thing t
