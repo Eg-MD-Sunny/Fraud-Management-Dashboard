@@ -45,7 +45,9 @@ order by 1 asc
 
 select count(*) [Total Order Count]
 from (
-	select o.Id OrderId, count(*) TotalQuantity
+	select o.Id     [OrderId],
+	       count(*) [TotalQuantity]
+ 
 	from ThingRequest tr
 	join shipment s on s.id=tr.shipmentid
 	join productvariant pv on pv.id=tr.ProductVariantId
