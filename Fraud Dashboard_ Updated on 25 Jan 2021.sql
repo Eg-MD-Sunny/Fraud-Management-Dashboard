@@ -160,17 +160,17 @@ having count(distinct a.orderid)>1)b
 
 select COUNT(distinct c2.id) 	[CustomerID],
        SUM(t.MoneyBalance) 		[MoneyBalance]
-	   
+
 from accounting.txn t
 join accounting.account ac2 on ac2.id = t.accountid
 join accounting.event ev on ev.id = t.eventid
 join customer c2 on c2.CustomerGuid = ac2.[owner] and ac2.AccountHead = 'Organizational'
-inner join
-(select c.id as id, max(sequencenum) as seq from accounting.txn t
-join accounting.account ac on ac.id = t.accountid
-join accounting.event ev on ev.id = t.eventid
-join customer c on c.CustomerGuid = ac.[owner]
-join employee e on e.id=c.id
+inner join (
+	select c.id as id, max(sequencenum) as seq from accounting.txn t
+    join accounting.account ac on ac.id = t.accountid
+    join accounting.event ev on ev.id = t.eventid
+    join customer c on c.CustomerGuid = ac.[owner]
+    join employee e on e.id=c.id
 where [When]>='2022-04-14 00:00 +6:00'
 and [When]<'2022-04-21 00:00 +6:00'
 and accounthead = 'Organizational'
