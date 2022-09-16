@@ -136,11 +136,15 @@ having sum(deliveryfee)=0) a
 
 -- 0 Delivery Fee (Repeated Customers)
 
-Select count(*) RepeatedCustomerCount
+Select count(*) 							[RepeatedCustomerCount]
 from (
-Select a.Customerid,count(distinct a.OrderID) OrderCount
+Select  a.Customerid                        [CustomerID],
+		count(distinct a.OrderID) 			[OrderCount]
 from (
-Select o.customerid Customerid,o.id OrderID,sum(deliveryfee) DeliveryFee
+Select o.customerid     [Customerid],
+       o.id             [OrderID],
+	   sum(deliveryfee) [DeliveryFee]
+
 from shipment s
 join [order] o on o.id=s.orderid
 where s.reconciledon is not null
