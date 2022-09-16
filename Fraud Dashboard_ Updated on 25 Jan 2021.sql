@@ -158,8 +158,9 @@ having count(distinct a.orderid)>1)b
 
 -- Organizational Data (Without Accounts Department)
 
-select COUNT(distinct c2.id) CustomerID,
-SUM(t.MoneyBalance) MoneyBalance
+select COUNT(distinct c2.id) 	[CustomerID],
+       SUM(t.MoneyBalance) 		[MoneyBalance]
+	   
 from accounting.txn t
 join accounting.account ac2 on ac2.id = t.accountid
 join accounting.event ev on ev.id = t.eventid
