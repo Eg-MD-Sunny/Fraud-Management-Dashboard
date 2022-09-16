@@ -213,14 +213,18 @@ po.CompletedOn>='2022-04-14 00:00 +6:00'
 and po.CompletedOn<'2022-04-21 00:00 +6:00'
 and po.purchaseorderstatusid not in (3)
 and po.CompletedOn is not null
-group by v.id,v.name, po.id,cast(dbo.tobdt(po.CompletedOn) as date)
+
+group by v.id,
+		 v.name,
+		 po.id,
+		 cast(dbo.tobdt(po.CompletedOn) as date)
 order by 1 asc
 
 
 -- Snag_Damage
 
-select  COUNT(distinct customerid) [DamageCustomer],
-		sum(saleprice)             [DamageAmount]
+select  COUNT(distinct customerid) 		[DamageCustomer],
+		sum(saleprice)             		[DamageAmount]
 
 from ThingRequest tr
 join shipment s on s.id = tr.shipmentid
@@ -233,7 +237,9 @@ and SnagType=3
 
 -- Snag_Missing
 
-select COUNT(distinct customerid) MissingCustomer, sum(saleprice) MissingAmount
+select count(distinct customerid) 		[MissingCustomer],
+       sum(saleprice) 					[MissingAmount]
+
 from ThingRequest tr
 join shipment s on s.id = tr.shipmentid
 join [order] o on o.id = s.orderid
