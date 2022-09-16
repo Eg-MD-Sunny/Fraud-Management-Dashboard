@@ -220,7 +220,7 @@ order by 1 asc
 -- Snag_Damage
 
 select  COUNT(distinct customerid) [DamageCustomer],
-		sum(saleprice) [DamageAmount]
+		sum(saleprice)             [DamageAmount]
 
 from ThingRequest tr
 join shipment s on s.id = tr.shipmentid
